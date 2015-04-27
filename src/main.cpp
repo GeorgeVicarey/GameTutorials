@@ -34,10 +34,17 @@ int main(int argc, char* argv[]) {
     bool gameRunning = true;
     double lastTime = SDL_GetTicks();
 
+    SDL_Event e;
+
     while (gameRunning) {
     	double current = SDL_GetTicks();
     	double delta = current - lastTime;
-    	//Handle Events Here
+
+    	while (SDL_PollEvent( &e ) != 0) {
+    		if( e.type == SDL_QUIT){
+    			gameRunning = false;
+    		}
+    	}
 
     	//Update Here passing delta as a parameter
 
