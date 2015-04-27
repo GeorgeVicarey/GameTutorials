@@ -31,9 +31,20 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // The window is open: enter program loop (see SDL_PollEvent)
+    bool gameRunning = true;
+    double lastTime = SDL_GetTicks();
 
-    SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
+    while (gameRunning) {
+    	double current = SDL_GetTicks();
+    	double delta = current - lastTime;
+    	//Handle Events Here
+
+    	//Update Here passing delta as a parameter
+
+    	//Render Here
+
+    	lastTime = current;
+    }
 
     // Close and destroy the window
     SDL_DestroyWindow(window);
