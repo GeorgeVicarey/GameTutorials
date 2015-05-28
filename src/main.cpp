@@ -7,29 +7,12 @@
 
 #include "SDL2/SDL.h"
 #include <stdio.h>
+#include "Game.h"
 
 int main(int argc, char* argv[]) {
+	Game* game = new Game();
 
-    SDL_Window *window;                    // Declare a pointer
-
-    SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
-
-    // Create an application window with the following settings:
-    window = SDL_CreateWindow(
-        "An SDL2 window",                  // window title
-        SDL_WINDOWPOS_UNDEFINED,           // initial x position
-        SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        640,                               // width, in pixels
-        480,                               // height, in pixels
-        SDL_WINDOW_OPENGL                  // flags - see below
-    );
-
-    // Check that the window was successfully made
-    if (window == NULL) {
-        // In the event that the window could not be made...
-        printf("Could not create window: %s\n", SDL_GetError());
-        return 1;
-    }
+	game->Init();
 
     bool gameRunning = true;
     double lastTime = SDL_GetTicks();
@@ -44,17 +27,18 @@ int main(int argc, char* argv[]) {
     		if( e.type == SDL_QUIT){
     			gameRunning = false;
     		}
+
+    		game->HandleEvents( e );
     	}
 
     	//Update Here passing delta as a parameter
+    	game->Update( delta );
 
     	//Render Here
+    	game->Render();
 
     	lastTime = current;
     }
-
-    // Close and destroy the window
-    SDL_DestroyWindow(window);
 
     // Clean up
     SDL_Quit();
